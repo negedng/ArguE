@@ -272,7 +272,7 @@ class main:
             aif_data = dl.loadData((current_dir + 'resources/datasets/araucaria/'))
             AFE = af.AdvancedFeatureExtractor()
             aif_data = AFE.extractFeatures(aif_data)
-            store = pd.HDFStore(aif,'w')
+            store = pd.HDFStore(aif,'w', format='table')
             store["feature"] = aif_data
             store.close()
             print("AIF generated")
