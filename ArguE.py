@@ -296,9 +296,9 @@ class main:
     #data is already balanced and labels are changed
     trainSet = arguE.load_Data_From_Store(seTrain)
 
-    OneR = arguE.train_Dummy_classifier(trainSet, current_dir + "resources/classifierModels/se_or.pkl")
-    RF = arguE.train_RF_classifier(trainSet, current_dir+ "resources/classifierModels/all_rf.pkl")
-    RNN = arguE.train_RNN_classifier(trainSet, epochs=25, saveModel=current_dir + "resources/classifierModels/ibm_rnn.h5")
+    #OneR = arguE.train_Dummy_classifier(trainSet, current_dir + "resources/classifierModels/se_or.pkl")
+    #RF = arguE.train_RF_classifier(trainSet, current_dir+ "resources/classifierModels/all_rf.pkl")
+    RNN = arguE.train_RNN_classifier(trainSet, epochs=25, saveModel=current_dir + "resources/classifierModels/se_rnn.h5")
 
     ####### Testing #######
 
@@ -306,9 +306,9 @@ class main:
 
     testSet = arguE.load_Data_From_Store(seTest)
 
-    arguE.test_classifier(testSet, OneR)
+    #arguE.test_classifier(testSet, OneR)
 
-    arguE.test_classifier(testSet, RF)
+    #arguE.test_classifier(testSet, RF)
 
     arguE.test_classifier(testSet, RNN)
 
