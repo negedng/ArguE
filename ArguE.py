@@ -267,22 +267,22 @@ class main:
     arguE = ArguE()
     
     ####### Build resources if not existing #######
-    if not os.path.exists(aifTrain):
-        if not os.path.exists(aif):
-            aif_data = dl.loadData((current_dir + 'resources/datasets/araucaria/'))
+    if not os.path.exists(sefTrain):
+        if not os.path.exists(se):
+            se_data = dl.loadData((current_dir + 'resources/datasets/brat-project/'))
             AFE = af.AdvancedFeatureExtractor()
-            aif_data = AFE.extractFeatures(aif_data)
-            store = pd.HDFStore(aif,'w')
-            store["feature"] = aif_data
+            se_data = AFE.extractFeatures(se_data)
+            store = pd.HDFStore(se,'w')
+            store["feature"] = se_data
             store.close()
-            print("AIF generated")
-        aif_data = arguE.load_Data_From_Store(aif)
-        aif_train, aif_test = arguE.split_data(aif_data)
-        store = pd.HDFStore(aifTrain,'w')
-        store["feature"] = aif_train
+            print("SE generated")
+        se_data = arguE.load_Data_From_Store(se)
+        se_train, se_test = arguE.split_data(se_data)
+        store = pd.HDFStore(seTrain,'w')
+        store["feature"] = se_train
         store.close()
-        store = pd.HDFStore(aifTest,'w')
-        store["feature"] = aif_test
+        store = pd.HDFStore(seTest,'w')
+        store["feature"] = se_test
         store.close()
         print("Train-test generated")
         
@@ -294,9 +294,9 @@ class main:
     print("################## TRAINING:")
 
     #data is already balanced and labels are changed
-    trainSet = arguE.load_Data_From_Store(aifTrain)
+    trainSet = arguE.load_Data_From_Store(seTrain)
 
-    OneR = arguE.train_Dummy_classifier(trainSet, current_dir + "resources/classifierModels/aif_or.pkl")
+    OneR = arguE.train_Dummy_classifier(trainSet, current_dir + "resources/classifierModels/se_or.pkl")
     RF = arguE.train_RF_classifier(trainSet, current_dir+ "resources/classifierModels/all_rf.pkl")
     RNN = arguE.train_RNN_classifier(trainSet, epochs=25, saveModel=current_dir + "resources/classifierModels/ibm_rnn.h5")
 
@@ -304,7 +304,7 @@ class main:
 
     print("################## TESTING:")
 
-    testSet = arguE.load_Data_From_Store(aifTest)
+    testSet = arguE.load_Data_From_Store(seTest)
 
     arguE.test_classifier(testSet, OneR)
 
