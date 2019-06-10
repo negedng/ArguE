@@ -2,9 +2,12 @@ from ArgumentationClassifier import DataLoader as dl
 from ArgumentationClassifier import ADSClassifier
 from ArgumentationClassifier import FeatureExtractor as af
 import pandas as pd
+import numpy as np
 from keras import models
 from sklearn.externals import joblib
-
+import os
+import inspect
+import sys
 
 
 """Interface for loading the data from the ArguE-XML-File format,
@@ -246,21 +249,43 @@ class ArguE:
 
 class main:
 
-    aif = "resources/datasets/aif.h5"
-    se = "resources/datasets/se.h5"
-    ibm = "resources/datasets/ibm.h5"
-    argu = "resources/datasets/arguE.h5"
+    current_dir = os.path.dirname(inspect.stack()[0][1]) + '/'
+    aif = current_dir + "resources/datasets/aif.h5"
+    se = current_dir + "resources/datasets/se.h5"
+    ibm = current_dir + "resources/datasets/ibm.h5"
+    argu = current_dir + "resources/datasets/arguE.h5"
 
-    aifTrain = "resources/datasets/training/aifTrain.h5"
-    aifTest = "resources/datasets/testing/aifTest.h5"
-    seTrain = "resources/datasets/training/seTrain.h5"
-    seTest = "resources/datasets/testing/seTest.h5"
-    ibmTrain = "resources/datasets/training/ibmTrain.h5"
-    ibmTest = "resources/datasets/testing/ibmTest.h5"
-    argueTrain = "resources/datasets/training/argueTrain.h5"
-    argueTest = "resources/datasets/testing/argueTest.h5"
+    aifTrain = current_dir + "resources/datasets/training/aifTrain.h5"
+    aifTest = current_dir + "resources/datasets/testing/aifTest.h5"
+    seTrain = current_dir + "resources/datasets/training/seTrain.h5"
+    seTest = current_dir + "resources/datasets/testing/seTest.h5"
+    ibmTrain = current_dir + "resources/datasets/training/ibmTrain.h5"
+    ibmTest = current_dir + "resources/datasets/testing/ibmTest.h5"
+    argueTrain = current_dir + "resources/datasets/training/argueTrain.h5"
+    argueTest = current_dir + "resources/datasets/testing/argueTest.h5"
 
     arguE = ArguE()
+    
+    ####### Build resources if not existing #######
+    if not os.path.exists(aifTrain):
+        if not os.path.exists(aif):
+            aif_data = dl.loadData((current_dir + 'resources/datasets/araucaria/'))
+            AFE = af.AdvancedFeatureExtractor()
+            aif_data = AFE.extractFeatures(aif_data)
+            store = pd.HDFStore(aif,'w')
+            store["feature"] = aif_data
+            store.close()
+            print("AIF generated")
+        aif_data = arguE.load_Data_From_Store(aif)
+        aif_train, aif_test = arguE.split_data(aif_data)
+        store = pd.HDFStore(aifTrain,'w')
+        store["feature"] = aif_train
+        store.close()
+        store = pd.HDFStore(aifTest,'w')
+        store["feature"] = aif_test
+        store.close()
+        print("Train-test generated")
+        
 
     #######################################################################
 
@@ -271,9 +296,9 @@ class main:
     #data is already balanced and labels are changed
     trainSet = arguE.load_Data_From_Store(aifTrain)
 
-    OneR = arguE.train_Dummy_classifier(trainSet, "resources/classifierModels/aif_or.pkl")
-    RF = arguE.train_RF_classifier(trainSet, "resources/classifierModels/all_rf.pkl")
-    RNN = arguE.train_RNN_classifier(trainSet, epochs=25, saveModel="resources/classifierModels/ibm_rnn.h5")
+    OneR = arguE.train_Dummy_classifier(trainSet, current_dir + "resources/classifierModels/aif_or.pkl")
+    RF = arguE.train_RF_classifier(trainSet, current_dir+ "resources/classifierModels/all_rf.pkl")
+    RNN = arguE.train_RNN_classifier(trainSet, epochs=25, saveModel=current_dir + "resources/classifierModels/ibm_rnn.h5")
 
     ####### Testing #######
 
