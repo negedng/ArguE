@@ -267,7 +267,7 @@ class main:
     arguE = ArguE()
     
     ####### Build resources if not existing #######
-    if not os.path.exists(sefTrain):
+    if not os.path.exists(seTrain):
         if not os.path.exists(se):
             se_data = dl.loadData((current_dir + 'resources/datasets/brat-project/'))
             AFE = af.AdvancedFeatureExtractor()
