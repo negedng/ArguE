@@ -20,7 +20,7 @@ def train_RNN_classifier(dataset, epochs, singlePrint=False):
     x_train, y_train = dl.prepare_data_for_RNN(dataset)
 
     numberOfClasses = y_train.shape[1]
-    print("Number of classes:"+numberOfClasses)
+    print("Number of classes:"+str(numberOfClasses))
 
     lstm_input_dim = x_train["sentence1"].shape[1:]
     concatenateInput = x_train["sharedFeatures"].shape[1:]
