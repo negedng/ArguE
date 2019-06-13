@@ -306,7 +306,7 @@ class main:
     print("################## TESTING:")
 
     testSet = arguE.load_Data_From_Store(seTest)
-    testSet = argue.change_labels(testSet)
+    testSet = arguE.change_labels(testSet)
 
     #arguE.test_classifier(testSet, OneR)
 
