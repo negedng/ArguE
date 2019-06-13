@@ -295,7 +295,7 @@ class main:
 
     #data is already balanced and labels are changed
     trainSet = arguE.load_Data_From_Store(seTrain)
-	trainSet = arguE.change_labels(trainSet)
+    trainSet = arguE.change_labels(trainSet)
 
     #OneR = arguE.train_Dummy_classifier(trainSet, current_dir + "resources/classifierModels/se_or.pkl")
     #RF = arguE.train_RF_classifier(trainSet, current_dir+ "resources/classifierModels/all_rf.pkl")
@@ -306,7 +306,7 @@ class main:
     print("################## TESTING:")
 
     testSet = arguE.load_Data_From_Store(seTest)
-	testSet = argue.change_labels(testSet)
+    testSet = argue.change_labels(testSet)
 
     #arguE.test_classifier(testSet, OneR)
 
