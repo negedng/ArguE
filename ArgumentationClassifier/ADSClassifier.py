@@ -36,12 +36,14 @@ def train_RNN_classifier(dataset, epochs, singlePrint=False):
     softmax = Dense(numberOfClasses, activation='softmax')(dense)
 
     model = Model(inputs=[sentence1, sentence2,  sharedFeatures], outputs=[softmax])
-    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    model.compile(loss='binary_crossentropy', optimizer='sgd', metrics=['accuracy'])
 
     if (singlePrint):
-        history = model.fit(x_train, y_train, validation_split=0.2, epochs=epochs, batch_size=256, verbose=0)
+        history = model.fit(x_train, y_train, validation_split=0.2, epochs=epochs, batch_size=150, verbose=0)
         print(history.history["acc"])
     else :
+        print(x_train[:10])
+		print(y_train[:10])
         history = model.fit(x_train, y_train, validation_split=0.2, epochs=epochs, batch_size=150)
 
     plot_Training(history)
