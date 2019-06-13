@@ -42,8 +42,8 @@ def train_RNN_classifier(dataset, epochs, singlePrint=False):
         history = model.fit(x_train, y_train, validation_split=0.2, epochs=epochs, batch_size=150, verbose=0)
         print(history.history["acc"])
     else :
-        print(x_train[:10])
-        print(y_train[:10])
+        print(x_train)
+        print(y_train)
         history = model.fit(x_train, y_train, validation_split=0.2, epochs=epochs, batch_size=150)
 
     plot_Training(history)
