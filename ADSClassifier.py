@@ -15,12 +15,12 @@ import matplotlib.pyplot as plt
 
 def train_RNN_classifier(dataset, epochs, singlePrint=False):
 
-    print("-----TRAIN CLASSIFIER-----")
+    print("-----TRAIN CLASSIFIER-----!")
 
     x_train, y_train = dl.prepare_data_for_RNN(dataset)
 
     numberOfClasses = y_train.shape[1]
-    print(numberOfClasses)
+    print("Number of classes:"+numberOfClasses)
 
     lstm_input_dim = x_train["sentence1"].shape[1:]
     concatenateInput = x_train["sharedFeatures"].shape[1:]
@@ -36,7 +36,7 @@ def train_RNN_classifier(dataset, epochs, singlePrint=False):
     softmax = Dense(numberOfClasses, activation='softmax')(dense)
 
     model = Model(inputs=[sentence1, sentence2,  sharedFeatures], outputs=[softmax])
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
 
     if (singlePrint):
         history = model.fit(x_train, y_train, validation_split=0.2, epochs=epochs, batch_size=150, verbose=0)
