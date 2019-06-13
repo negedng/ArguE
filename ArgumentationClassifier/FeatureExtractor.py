@@ -11,24 +11,19 @@ from nltk.data import load
 from keras.preprocessing.sequence import pad_sequences
 import timeit
 import spacy
-import os
-import inspect
-
-current_dir = os.path.dirname(os.path.dirname(inspect.stack()[0][1])) + '/'
-print(current_dir)
 
 class AdvancedFeatureExtractor:
 
     def __init__(self):
 
         self.GRAPHENE_SERVICE = "http://nietzsche.fim.uni-passau.de:8080/simplification/text"
-        self.premiseIndicators = self.read_key_words(current_dir+"resources/premise_indicator.txt")
-        self.claimIndicators = self.read_key_words(current_dir+"resources/claim_indicator.txt")
+        self.premiseIndicators = self.read_key_words("resources/premise_indicator.txt")
+        self.claimIndicators = self.read_key_words("resources/claim_indicator.txt")
         self.tagdict = load('help/tagsets/upenn_tagset.pickle')
         self.lb = preprocessing.LabelBinarizer()
         self.lb.fit(list(self.tagdict.keys()))
         self.nlp=spacy.load('en')
-        self.word2VecModel = gensim.models.KeyedVectors.load_word2vec_format(current_dir+'resources/GoogleNews-vectors-negative300.bin.gz', binary=True)
+        self.word2VecModel = gensim.models.KeyedVectors.load_word2vec_format('resources/GoogleNews-vectors-negative300.bin.gz', binary=True)
 
     def extractFeatures(self, dataset):
 
@@ -84,11 +79,11 @@ class AdvancedFeatureExtractor:
         elapsed = timeit.default_timer() - start_time
         print(elapsed)
 
-        #print("-----5. FEATURE: ADD SHARED NOUNS - BINARY AND VALUE----")
-        #start_time = timeit.default_timer()
-        #dataset = self.shared_noun_feature(dataset, propositionSet, parsedPropositions)
-        #elapsed = timeit.default_timer() - start_time
-        #print(elapsed)
+        print("-----5. FEATURE: ADD SHARED NOUNS - BINARY AND VALUE----")
+        start_time = timeit.default_timer()
+        dataset = self.shared_noun_feature(dataset, propositionSet, parsedPropositions)
+        elapsed = timeit.default_timer() - start_time
+        print(elapsed)
 
         print("-----6. FEATURE: SAME SENTENCE FEATURE----")
         start_time = timeit.default_timer()

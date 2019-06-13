@@ -273,6 +273,7 @@ def supervised_split(dataset, splitRatio):
     return datasetTrain, datasetTest
 
 def flatten_vectors(x_data):
+
     x_vector1 = np.stack(x_data.as_matrix(columns=['vector1']).ravel())
     x_vector1 = np.reshape(x_vector1, (x_vector1.shape[0], x_vector1.shape[1]*x_vector1.shape[2]))
 
