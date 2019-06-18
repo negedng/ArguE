@@ -161,8 +161,8 @@ class AdvancedFeatureExtractor:
         temp = dataset[['arg1','arg2']].apply(lambda row: self.find_shared_nouns(parsedPropositions[propositionSet.index(row['arg1'])], parsedPropositions[propositionSet.index(row['arg2'])]), axis=1)
         temp = pd.DataFrame(temp.tolist(), columns=['sharedNouns', 'numberOfSharedNouns'])
         print(temp)
-        dataset["sharedNouns"] = temp.iloc[:,'sharedNouns']
-        dataset["numberOfSharedNouns"] = temp.iloc[:,'numberOfSharedNouns']
+        dataset["sharedNouns"] = temp.loc[:,'sharedNouns']
+        dataset["numberOfSharedNouns"] = temp.loc[:,'numberOfSharedNouns']
         
         return dataset
 
