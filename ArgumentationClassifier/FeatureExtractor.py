@@ -57,49 +57,42 @@ class AdvancedFeatureExtractor:
         for proposition in propositionSet:
             words = word_tokenize(proposition)
             parsedPropositions.append(nltk.pos_tag(words))
-        print(dataset[:5])
 
         print("-----1. Feature: EXTRACTING WORD VECTORS-----")
         start_time = timeit.default_timer()
         dataset = self.word_vector_feature(dataset, propositionSet, parsedPropositions)
         elapsed = timeit.default_timer() - start_time
         print(elapsed)
-        print(dataset[:5])
 
         print("-----2. FEATURE: ADDING ONE-HOT ENCODED POS-----")
         start_time = timeit.default_timer()
         dataset = self.pos_feature(dataset, propositionSet, parsedPropositions)
         elapsed = timeit.default_timer() - start_time
         print(elapsed)
-        print(dataset[:5])
 
         print("-----3. Feature: ADDING KEYWORD FEATURE-----")
         start_time = timeit.default_timer()
         dataset = self.keyword_feature(dataset, propositionSet)
         elapsed = timeit.default_timer() - start_time
         print(elapsed)
-        print(dataset[:5])
 
         print("-----4. FEATURE: ADDING NUMBER OF TOKENS-----")
         start_time = timeit.default_timer()
         dataset = self.token_feature(dataset, propositionSet, parsedPropositions)
         elapsed = timeit.default_timer() - start_time
         print(elapsed)
-        print(dataset[:5])
 
         print("-----5. FEATURE: ADD SHARED NOUNS - BINARY AND VALUE----")
         start_time = timeit.default_timer()
         dataset = self.shared_noun_feature(dataset, propositionSet, parsedPropositions)
         elapsed = timeit.default_timer() - start_time
         print(elapsed)
-        print(dataset[:5])
 
         print("-----6. FEATURE: SAME SENTENCE FEATURE----")
         start_time = timeit.default_timer()
         dataset = self.same_sentence_feature(dataset)
         elapsed = timeit.default_timer() - start_time
         print(elapsed)
-        print(dataset[:5])
 
         return dataset
 
@@ -160,7 +153,6 @@ class AdvancedFeatureExtractor:
 
         temp = dataset[['arg1','arg2']].apply(lambda row: self.find_shared_nouns(parsedPropositions[propositionSet.index(row['arg1'])], parsedPropositions[propositionSet.index(row['arg2'])]), axis=1)
         temp = pd.DataFrame(temp.tolist(), columns=['sharedNouns', 'numberOfSharedNouns'])
-        print(temp)
         dataset["sharedNouns"] = temp.loc[:,'sharedNouns']
         dataset["numberOfSharedNouns"] = temp.loc[:,'numberOfSharedNouns']
         
