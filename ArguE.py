@@ -307,6 +307,7 @@ class main:
 
     testSet = arguE.load_Data_From_Store(seTest)
     testSet = arguE.change_labels(testSet)
+    testSet = arguE.balance_data(testSet)
 
     #arguE.test_classifier(testSet, OneR)
 
