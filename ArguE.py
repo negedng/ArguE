@@ -300,7 +300,7 @@ class main:
 
     #OneR = arguE.train_Dummy_classifier(trainSet, current_dir + "resources/classifierModels/se_or.pkl")
     #RF = arguE.train_RF_classifier(trainSet, current_dir+ "resources/classifierModels/all_rf.pkl")
-    RNN = arguE.train_RNN_classifier(trainSet, epochs=5, saveModel=current_dir + "resources/classifierModels/se_rnn.h5")
+    RNN = arguE.train_RNN_classifier(trainSet, epochs=25, saveModel=current_dir + "resources/classifierModels/se_rnn.h5")
 
     ####### Testing #######
 
