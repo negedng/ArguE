@@ -4,6 +4,7 @@ import requests
 import pandas as pd
 import gensim
 import re
+import os
 from nltk.tokenize import word_tokenize
 from sklearn import preprocessing
 import nltk
