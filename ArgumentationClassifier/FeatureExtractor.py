@@ -17,15 +17,16 @@ import spacy
 class AdvancedFeatureExtractor:
 
     def __init__(self):
-        current_dir = os.path.dirname(inspect.stack()[0][1]) + '/'
+        current_dir = os.path.dirname(inspect.stack()[0][1])
+        parent_dir = current_dir.rsplit('/', 1)[0]
         self.GRAPHENE_SERVICE = "http://nietzsche.fim.uni-passau.de:8080/simplification/text"
-        self.premiseIndicators = self.read_key_words("../resources/premise_indicator.txt")
-        self.claimIndicators = self.read_key_words("../resources/claim_indicator.txt")
+        self.premiseIndicators = self.read_key_words((parent_dir + "/resources/premise_indicator.txt"))
+        self.claimIndicators = self.read_key_words((parent_dir + "/resources/claim_indicator.txt"))
         self.tagdict = load('help/tagsets/upenn_tagset.pickle')
         self.lb = preprocessing.LabelBinarizer()
         self.lb.fit(list(self.tagdict.keys()))
         self.nlp=spacy.load('en')
-        self.word2VecModel = gensim.models.KeyedVectors.load_word2vec_format('../resources/GoogleNews-vectors-negative300.bin.gz', binary=True)
+        self.word2VecModel = gensim.models.KeyedVectors.load_word2vec_format((parent_dir + '/resources/GoogleNews-vectors-negative300.bin.gz'), binary=True)
 
     def extractFeatures(self, dataset):
 
