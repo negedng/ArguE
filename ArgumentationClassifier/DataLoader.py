@@ -320,7 +320,7 @@ def prepare_data_for_RNN(dataset):
 
     x_dataFrame = dataset.drop(['label', 'argumentationID'], axis=1)
     #Removed: , 'sharedNouns', 'numberOfSharedNouns'
-    sharedFeatures = x_dataFrame.as_matrix(columns=['claimIndicatorArg1', 'premiseIndicatorArg1','claimIndicatorArg2', 'premiseIndicatorArg2','sameSentence', 'tokensArg1', 'tokensArg2'])
+    sharedFeatures = x_dataFrame.as_matrix(columns=['claimIndicatorArg1', 'premiseIndicatorArg1','claimIndicatorArg2', 'premiseIndicatorArg2','sameSentence','sharedNouns', 'numberOfSharedNouns', 'tokensArg1', 'tokensArg2'])
 
     sentence1Vector = np.stack(x_dataFrame.as_matrix(columns=['vector1']).ravel())
     sentence2Vector = np.stack(x_dataFrame.as_matrix(columns=['vector2']).ravel())
