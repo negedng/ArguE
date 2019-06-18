@@ -159,7 +159,7 @@ class AdvancedFeatureExtractor:
         #dataset[["sharedNouns", "numberOfSharedNouns"]] = dataset[['arg1','arg2']].apply(lambda row: self.find_shared_nouns(parsedPropositions[propositionSet.index(row['arg1'])], parsedPropositions[propositionSet.index(row['arg2'])]), axis=1)
 
         temp = dataset[['arg1','arg2']].apply(lambda row: self.find_shared_nouns(parsedPropositions[propositionSet.index(row['arg1'])], parsedPropositions[propositionSet.index(row['arg2'])]), axis=1)
-        
+        print(temp)
         dataset["sharedNouns"] = temp[0,:]
         dataset["numberOfSharedNouns"] = temp[1,:]
         
