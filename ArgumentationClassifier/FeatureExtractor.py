@@ -5,6 +5,7 @@ import pandas as pd
 import gensim
 import re
 import os
+import inspect
 from nltk.tokenize import word_tokenize
 from sklearn import preprocessing
 import nltk
